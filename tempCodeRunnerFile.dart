@@ -1,1 +1,2 @@
 
+  print(bts is BoyGroup);

@@ -1,180 +1,39 @@
 import 'dart:ffi';
+
 import 'dart:io';
 import 'dart:core';
 import 'any.dart';
 
 void main(){
-  print('-----------Idol------------');
-  Idol apink = Idol(name: '에이핑크', membersCount: 5);
+  List<String> softwareCompany= ['apple', 'google', 'microsoft', 'aranCP', 'facebook'];
 
-  apink.sayName();
-  apink.sayMemberscount();
-  
+  print(softwareCompany.map((x){ //이것은 .map()이라는 함수 안에 함수를 또 넣은 형태이다 x라는 파라미터의 넣은 값이 리턴 값으로 바뀌는 코드이다.
+    return 'aran $x';
+  }));
+  //실행결과 
+  //(aran apple, aran google, aran microsoft, aran aranCP, aran facebook)
 
-  print('------------BoyGroup-------------');
-  BoyGroup bts = BoyGroup('BTS', 7);
-  bts.sayMemberscount();
-  bts.sayName();
-  bts.sayMale();
-
-  print('--------------GirlGroup----------');
-  GirlGroup redVelvet = GirlGroup('레드벨벳', 5);
-
-  redVelvet.sayMemberscount();
-  redVelvet.sayName();
-  redVelvet.sayFemale();
-  
-  print('---------------Type Comparision----------------');
-  print(apink is Idol);
-  print(apink is BoyGroup);
-  print(apink is GirlGroup);
-  print('');
-  print(bts is Idol);
-  print(bts is BoyGroup);
-  print(bts is GirlGroup);
-  print('');
-  print(redVelvet is Idol);
-  print(redVelvet is BoyGroup);
-  print(redVelvet is GirlGroup);
-}
-
-class Idol{
-  String name;
-  int membersCount;
-
-  Idol({
-    required this.name,
-    required this.membersCount,
+  final newSoftwareCompany = softwareCompany.map((x){ //리스트의 모든 인덱스를 파라미터 x로 전송(참조1)
+    return 'aran $x';
   });
 
-  void sayName(){
-    print('저는 ${this.name},입니다.');
-  }
+  print(newSoftwareCompany.toList());
 
-  void sayMemberscount(){
-    print('${this.name}은 ${this.membersCount}명의 맴버가 있습니다.');
-  }
-
-}
-
-class BoyGroup extends Idol{
-  BoyGroup(
-    String name,
-    int membersCount,
-  ): super(
-    name: name,
-    membersCount: membersCount
-  );
-
-  void sayMale(){
-    print('저는 남자 아이돌입니다.');
-  }
-
-}
-
-class GirlGroup extends Idol{
-  GirlGroup(
-    String name,
-    int membersCount,
-  ): super(
-    name: name,
-    membersCount: membersCount,
-  );
-
-  void sayFemale(){
-    print('저는 여자 아이돌입니다.');
-  }
-}
-
-
-
-
-
-
-
-// character class
-// _class     (클래스명)            - 변수
-// name       (직업명)              - 변수
-// identity   (특성소개)            -함수
-// introduce  (클래스 내 직업 소개)   -함수
-// class Character {
-//   final String? characterClass;
-//   final List<String>? name;
-
-//   // Character(String characterClass1, List<String> name1){
-//   //   this.characterClass = characterClass1;
-//   //   this.name = name1;
-//   // }
-
-//   Character(this.characterClass, this.name);
-
-
-//   void identity(){
-//     print('This Class is ${this.characterClass}');
-//   }
-
-//   void introduce(){
-//     print('${this.name} in ${this.characterClass} Class');
-//   }
-// }
-
-// class _Idol{
-//   String name;
-//   List<String> members;
-
-//   // Idol(String name, List<String> members){
-//   //   this.name = name;
-//   //   this.members = members;
-//   // }
-//   _Idol(this.name, this.members);
-
-//   _Idol.fromList(List values): 
-//     this.members = values[0],
-//     this.name = values[1];
-
-//   void sayHello(){ 
-//     print('안녕하세요 ${this.name}입니다');
-//   }
-
-//   void introduce(){
-//     print('저희 맴버는 ${this.members}가 있습니다.');
-//   }
-
-//   String get firstMember{
-//     return this.members[0];
-//   }
-
-//   set firstMember(String name){
-//     this.members[0]=name;
-//   }
-// }
-
-// void main(){
-//   int a = 1, b =1 , c =1 ;
-
+  final newSoftwareCompany2 = softwareCompany.map((e) => 'aran $e');//참조1의 간소화 버전
   
-//   print(identical(a, b)); // identical(); : 두 파라미터의 값이 같은지 비교한다.
-  // print('Code Start.\n');
+  print(newSoftwareCompany2);
 
-  // Character hunterClass = Character(
-  //   'Hunter',
-  //   ['DevilHunter', 'Blaster', 'HawkEye', 'Scouter']
-  // );
-  // print(hunterClass.characterClass);
-  // print(hunterClass.name);
-  // hunterClass.identity();
-  // hunterClass.introduce();
-  // print('');
+  print(softwareCompany == newSoftwareCompany); //false 서로 다른 리스트 이다.
+  print(newSoftwareCompany == newSoftwareCompany2); //false 다른 리스트
+  //.map()으로 선언된 리스트는 서로 다른 리스트이다.
+
+  //[1.jpg, 3.jpg, 5.jpg, 7.jpg, 9.jpg]
+  String num = '13579';
+
+  print(num);
+  final parsed = num.split(' ').map((e) => '$e.jpg');//split():함수 안에 있는 값이 들어올 때 단어를 끊어 주는 역할 interable 형태이다.(참조2)
   
-  // Character assassinsClass = Character(
-  //   'Assassins', 
-  //   ['Blade', 'Demonic', 'Reaper']
-  //   );
-  // print(assassinsClass.characterClass);
-  // print(assassinsClass.name);
-  // assassinsClass.identity();
-  // assassinsClass.introduce();
-  // print('');
+  //참조2 interable이란 값을 리스트 형태로 분리한 형태로 리스트와 비슷한 역할을 한다 하지만 리스트와는 다르며 주로 .map, .set 함수를 이용할 때 이런 형태로 반환한다.
+  print(parsed);
 
-
-// }
+}
